@@ -26,8 +26,17 @@ class ConverterTest {
 
     @Test
     void scenario1() throws IOException {
-        try (InputStream isSource = ConverterTest.class.getResourceAsStream("scenario1.json")) {
-            try (InputStream isExpected = ConverterTest.class.getResourceAsStream("converted1.json")) {
+        scenario("scenario1.json", "converted1.json");
+    }
+
+    @Test
+    void scenario2() throws IOException {
+        scenario("scenario2.json", "converted2.json");
+    }
+
+    private void scenario(String sourceName, String expectedName) throws IOException {
+        try (InputStream isSource = ConverterTest.class.getResourceAsStream(sourceName)) {
+            try (InputStream isExpected = ConverterTest.class.getResourceAsStream(expectedName)) {
                 ObjectMapper mapper = new ObjectMapper();
                 Set<ParsedFeature> features = mapper.readValue(isSource, new TypeReference<>() {
                 });

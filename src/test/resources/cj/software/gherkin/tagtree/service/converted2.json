@@ -1,0 +1,42 @@
+{
+  "@All": [
+    {
+      "feature": "one more feature",
+      "scenario": "first scenario"
+    },
+    {
+      "feature": "yet another feature",
+      "scenario": "awesome"
+    },
+    {
+      "feature": "yet another feature",
+      "scenario": "hello"
+    }
+  ],
+  "@Powercloud": [
+    {
+      "feature": "one more feature",
+      "scenario": "first scenario"
+    },
+    {
+      "feature": "yet another feature",
+      "scenario": "awesome"
+    },
+    {
+      "feature": "yet another feature",
+      "scenario": "hello"
+    }
+  ],
+  "@S11": [
+    {
+      "feature": "one more feature",
+      "scenario": "first scenario"
+    }
+  ],
+  "@Salesforce": [
+    {
+      "feature": "one more feature",
+      "scenario": "first scenario"
+    }
+  ]
+}
