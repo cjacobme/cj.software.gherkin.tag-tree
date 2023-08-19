@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.SortedSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,6 +58,33 @@ class GherkinTreeParserTest {
             softy = new SoftAssertions();
             softy.assertThat(scenario.getName()).isEqualTo("the one with tags");
             softy.assertThat(scenario.getTags()).as("tags").containsExactly("@OnlyAtScenario");
+            softy.assertAll();
+        }
+    }
+
+    @Test
+    void tagsEverywhere() throws IOException {
+        try (InputStream is = GherkinTreeParserTest.class.getResourceAsStream("TagAtFeature.feature")) {
+            SortedSet<ParsedFeature> parsed = parser.parse("TagAtFeature.feature", is);
+            assertThat(parsed).extracting("name").containsExactly("tag at a feature");
+            ParsedFeature first = parsed.first();
+            SortedSet<ParsedScenario> scenarios = first.getScenarios();
+            SoftAssertions softy = new SoftAssertions();
+            softy.assertThat(scenarios).as("scenarios").extracting("name").containsExactly(
+                    "tagged scenario in tagged feature",
+                    "untagged scenario in tagged feature");
+            softy.assertThat(first.getTags()).containsExactly("@FeatureTag");
+            softy.assertAll();
+            Iterator<ParsedScenario> iter = scenarios.iterator();
+            boolean next = iter.hasNext();
+            assertThat(next).isTrue();
+            ParsedScenario scenario =  iter.next();
+            softy = new SoftAssertions();
+            softy.assertThat(scenario.getTags()).as("tags[0]").containsExactly("@TagTag");
+            next = iter.hasNext();
+            assertThat(next).isTrue();
+            scenario = iter.next();
+            softy.assertThat(scenario.getTags()).as("tags[1]").isEmpty();
             softy.assertAll();
         }
     }

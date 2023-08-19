@@ -34,10 +34,7 @@ public class GherkinTreeParser {
                 Optional<Feature> optFeature = gherkinDocument.getFeature();
                 if (optFeature.isPresent()) {
                     Feature feature = optFeature.get();
-                    String name = feature.getName();
-                    logger.info("parse scenario \"%s\"...", name);
-                    ParsedFeature parsedFeature = ParsedFeature.builder().withName(name).build();
-                    parsedFeature = parse(parsedFeature, feature);
+                    ParsedFeature parsedFeature = parse(feature);
                     result.add(parsedFeature);
                 }
             }
@@ -45,8 +42,10 @@ public class GherkinTreeParser {
         return result;
     }
 
-    private ParsedFeature parse (ParsedFeature source, Feature feature) {
-        ParsedFeature result = source;
+    private ParsedFeature parse (Feature feature) {
+        String name = feature.getName();
+        logger.info("parse scenario \"%s\"...", name);
+        ParsedFeature result = ParsedFeature.builder().withName(name).build();
         List<FeatureChild> children = feature.getChildren();
         for (FeatureChild featureChild : children) {
             Optional<Scenario> optScenario = featureChild.getScenario();
@@ -55,6 +54,11 @@ public class GherkinTreeParser {
                 ParsedScenario parsedScenario = parsedScenario(scenario);
                 result.addScenario(parsedScenario);
             }
+        }
+        List<Tag> tags = feature.getTags();
+        for (Tag tag : tags) {
+            String tagName = tag.getName();
+            result.addTag(tagName);
         }
         return result;
     }
