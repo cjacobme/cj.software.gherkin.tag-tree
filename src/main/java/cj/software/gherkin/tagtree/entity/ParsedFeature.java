@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -67,7 +66,7 @@ public class ParsedFeature implements Serializable, Comparable<ParsedFeature> {
     }
 
     public SortedSet<ParsedScenario> getScenarios() {
-        return Collections.unmodifiableSortedSet(parsedScenarios);
+        return parsedScenarios;
     }
 
     @Override
@@ -83,7 +82,7 @@ public class ParsedFeature implements Serializable, Comparable<ParsedFeature> {
     }
 
     public SortedSet<String> getTags() {
-        return Collections.unmodifiableSortedSet(tags);
+        return tags;
     }
 
     @XmlTransient

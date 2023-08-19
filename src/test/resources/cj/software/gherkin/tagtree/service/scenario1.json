@@ -1,0 +1,48 @@
+[
+  {
+    "name": "Feature 1",
+    "tags": [
+      "@All",
+      "@F1",
+      "@System1"
+    ],
+    "scenarios": [
+      {
+        "name": "s1",
+        "tags": [
+          "@S11",
+          "@System2"
+        ]
+      },
+      {
+        "name": "s2",
+        "tags": [
+          "@S12",
+          "@abc"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Feature 2",
+    "tags": [
+      "@All",
+      "@F2"
+    ],
+    "scenarios": [
+      {
+        "name": "s1",
+        "tags": [
+          "@S21",
+          "@System1"
+        ]
+      },
+      {
+        "name": "s2",
+        "tags": [
+          "S22"
+        ]
+      }
+    ]
+  }
+]
