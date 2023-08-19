@@ -1,21 +1,18 @@
 package cj.software.gherkin.tagtree.entity;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.lang.reflect.Field;
-import java.util.*;
-
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.Serializable;
 import javax.validation.ConstraintViolation;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.assertj.core.api.SoftAssertions;
-
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 class CoordinateTest {
 
@@ -24,13 +21,6 @@ class CoordinateTest {
         Class<?>[] interfaces = Coordinate.class.getInterfaces();
         assertThat(interfaces).as("interfaces").contains(Serializable.class);
     }
-
-    @Test
-    void builderIsXmlTransient() {
-        XmlTransient annotation = Coordinate.Builder.class.getAnnotation(XmlTransient.class);
-        assertThat(annotation).as("Builder XmlTransient").isNotNull();
-    }
-
 
     @Test
     void constructEmpty()

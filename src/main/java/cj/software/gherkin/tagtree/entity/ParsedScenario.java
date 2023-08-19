@@ -3,7 +3,6 @@ package cj.software.gherkin.tagtree.entity;
 import org.apache.commons.lang3.builder.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.SortedSet;
@@ -73,7 +72,6 @@ public class ParsedScenario implements Serializable, Comparable<ParsedScenario> 
         return tags;
     }
 
-    @XmlTransient
     public static class Builder {
         protected ParsedScenario instance;
 

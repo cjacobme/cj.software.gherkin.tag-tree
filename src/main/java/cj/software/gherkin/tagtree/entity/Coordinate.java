@@ -3,7 +3,6 @@ package cj.software.gherkin.tagtree.entity;
 import org.apache.commons.lang3.builder.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -73,7 +72,6 @@ public class Coordinate implements Serializable, Comparable<Coordinate> {
         return new Builder();
     }
 
-    @XmlTransient
     public static class Builder {
         protected Coordinate instance;
 

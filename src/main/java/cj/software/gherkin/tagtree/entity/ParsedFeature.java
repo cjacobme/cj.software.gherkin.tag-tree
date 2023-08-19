@@ -4,7 +4,6 @@ import org.apache.commons.lang3.builder.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.SortedSet;
@@ -85,7 +84,6 @@ public class ParsedFeature implements Serializable, Comparable<ParsedFeature> {
         return tags;
     }
 
-    @XmlTransient
     public static class Builder {
         protected ParsedFeature instance;
 
