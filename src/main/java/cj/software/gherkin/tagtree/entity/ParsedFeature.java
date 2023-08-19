@@ -20,6 +20,8 @@ public class ParsedFeature implements Serializable, Comparable<ParsedFeature> {
 
     private final SortedSet<@Valid ParsedScenario> parsedScenarios = new TreeSet<>();
 
+    private final SortedSet<String> tags = new TreeSet<>();
+
     private ParsedFeature() {
     }
 
@@ -74,6 +76,14 @@ public class ParsedFeature implements Serializable, Comparable<ParsedFeature> {
                 .append(this.name, other.name);
         int result = builder.build();
         return result;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    public SortedSet<String> getTags() {
+        return Collections.unmodifiableSortedSet(tags);
     }
 
     @XmlTransient

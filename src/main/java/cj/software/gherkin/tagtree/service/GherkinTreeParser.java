@@ -52,10 +52,20 @@ public class GherkinTreeParser {
             Optional<Scenario> optScenario = featureChild.getScenario();
             if (optScenario.isPresent()) {
                 Scenario scenario = optScenario.get();
-                String name = scenario.getName();
-                ParsedScenario parsedScenario = ParsedScenario.builder().withName(name).build();
+                ParsedScenario parsedScenario = parsedScenario(scenario);
                 result.addScenario(parsedScenario);
             }
+        }
+        return result;
+    }
+
+    private ParsedScenario parsedScenario(Scenario scenario) {
+        String name = scenario.getName();
+        ParsedScenario result = ParsedScenario.builder().withName(name).build();
+        List<Tag> tags = scenario.getTags();
+        for (Tag tag : tags) {
+            String tagName = tag.getName();
+            result.addTag(tagName);
         }
         return result;
     }

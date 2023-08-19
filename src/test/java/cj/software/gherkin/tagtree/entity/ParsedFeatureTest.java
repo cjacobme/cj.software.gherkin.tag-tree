@@ -149,4 +149,15 @@ class ParsedFeatureTest {
         Collections.sort(list);
         assertThat(list).extracting("name").containsExactly("1", "2", "4");
     }
+
+    @Test
+    void addTags() {
+        ParsedFeature instance = new ParsedFeatureBuilder().build();
+        instance.addTag("tag2");
+        instance.addTag("tag1");
+        instance.addTag("tag75");
+        instance.addTag("tag2");
+        SortedSet<String> tags = instance.getTags();
+        assertThat(tags).as("tags").containsExactly("tag1", "tag2", "tag75");
+    }
 }

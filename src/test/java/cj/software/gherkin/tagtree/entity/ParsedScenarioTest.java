@@ -10,10 +10,7 @@ import javax.validation.ValidatorFactory;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -136,5 +133,16 @@ class ParsedScenarioTest {
         ParsedScenario instance1 = new ParsedScenarioBuilder().build();
         Object instance2 = Boolean.FALSE;
         assertThat(instance1).isNotEqualTo(instance2);
+    }
+
+    @Test
+    void addTags() {
+        ParsedScenario instance = new ParsedScenarioBuilder().build();
+        instance.addTag("tag2");
+        instance.addTag("tag1");
+        instance.addTag("tag75");
+        instance.addTag("tag2");
+        SortedSet<String> tags = instance.getTags();
+        assertThat(tags).as("tags").containsExactly("tag1", "tag2", "tag75");
     }
 }
