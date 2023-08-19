@@ -11,16 +11,16 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class TagTreeFeature implements Serializable, Comparable<TagTreeFeature> {
+public class ParsedFeature implements Serializable, Comparable<ParsedFeature> {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @NotBlank
     private String name;
 
-    private final SortedSet<@Valid TagTreeScenario> tagTreeScenarios = new TreeSet<>();
+    private final SortedSet<@Valid ParsedScenario> parsedScenarios = new TreeSet<>();
 
-    private TagTreeFeature() {
+    private ParsedFeature() {
     }
 
     public String getName() {
@@ -46,7 +46,7 @@ public class TagTreeFeature implements Serializable, Comparable<TagTreeFeature> 
     @Override
     public boolean equals (Object otherObject) {
         boolean result;
-        if (otherObject instanceof TagTreeFeature other) {
+        if (otherObject instanceof ParsedFeature other) {
             EqualsBuilder builder = new EqualsBuilder()
                     .append(name, other.name);
             result = builder.build();
@@ -56,20 +56,20 @@ public class TagTreeFeature implements Serializable, Comparable<TagTreeFeature> 
         return result;
     }
 
-    public void addScenario(TagTreeScenario tagTreeScenario) {
-        tagTreeScenarios.add(tagTreeScenario);
+    public void addScenario(ParsedScenario parsedScenario) {
+        parsedScenarios.add(parsedScenario);
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
-    public SortedSet<TagTreeScenario> getScenarios() {
-        return Collections.unmodifiableSortedSet(tagTreeScenarios);
+    public SortedSet<ParsedScenario> getScenarios() {
+        return Collections.unmodifiableSortedSet(parsedScenarios);
     }
 
     @Override
-    public int compareTo(TagTreeFeature other) {
+    public int compareTo(ParsedFeature other) {
         CompareToBuilder builder = new CompareToBuilder()
                 .append(this.name, other.name);
         int result = builder.build();
@@ -78,14 +78,14 @@ public class TagTreeFeature implements Serializable, Comparable<TagTreeFeature> 
 
     @XmlTransient
     public static class Builder {
-        protected TagTreeFeature instance;
+        protected ParsedFeature instance;
 
         protected Builder() {
-            instance = new TagTreeFeature();
+            instance = new ParsedFeature();
         }
 
-        public TagTreeFeature build() {
-            TagTreeFeature result = instance;
+        public ParsedFeature build() {
+            ParsedFeature result = instance;
             instance = null;
             return result;
         }

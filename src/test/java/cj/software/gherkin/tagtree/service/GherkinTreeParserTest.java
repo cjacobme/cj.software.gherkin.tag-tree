@@ -2,7 +2,7 @@ package cj.software.gherkin.tagtree.service;
 
 import static org.assertj.core.api.Assertions.*;
 
-import cj.software.gherkin.tagtree.entity.TagTreeFeature;
+import cj.software.gherkin.tagtree.entity.ParsedFeature;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,9 @@ class GherkinTreeParserTest {
     @Test
     void withoutTags() throws IOException {
         try (InputStream is = GherkinTreeParserTest.class.getResourceAsStream("NoTags.feature")) {
-            SortedSet<TagTreeFeature> parsed = parser.parse("NoTags.feature", is);
+            SortedSet<ParsedFeature> parsed = parser.parse("NoTags.feature", is);
             assertThat(parsed).extracting("name").containsExactly("no tags");
-            TagTreeFeature first = parsed.first();
+            ParsedFeature first = parsed.first();
             assertThat(first.getScenarios()).extracting("name").containsExactly("scenario without a tag");
         }
     }

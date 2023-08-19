@@ -17,17 +17,17 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TagTreeTagTreeScenarioTest {
+class ParsedScenarioTest {
 
     @Test
     void implementsSerializable() {
-        Class<?>[] interfaces = TagTreeScenario.class.getInterfaces();
+        Class<?>[] interfaces = ParsedScenario.class.getInterfaces();
         assertThat(interfaces).as("interfaces").contains(Serializable.class);
     }
 
     @Test
     void builderIsXmlTransient() {
-        XmlTransient annotation = TagTreeScenario.Builder.class.getAnnotation(XmlTransient.class);
+        XmlTransient annotation = ParsedScenario.Builder.class.getAnnotation(XmlTransient.class);
         assertThat(annotation).as("Builder XmlTransient").isNotNull();
     }
 
@@ -38,16 +38,16 @@ class TagTreeTagTreeScenarioTest {
             SecurityException,
             IllegalArgumentException,
             IllegalAccessException {
-        TagTreeScenario.Builder builder = TagTreeScenario.builder();
+        ParsedScenario.Builder builder = ParsedScenario.builder();
         assertThat(builder).as("builder").isNotNull();
 
         Field field = builder.getClass().getDeclaredField("instance");
 
         Object instanceBefore = field.get(builder);
         assertThat(instanceBefore).as("instance in builder before build").isNotNull().isInstanceOf(
-                TagTreeScenario.class);
+                ParsedScenario.class);
 
-        TagTreeScenario instance = builder.build();
+        ParsedScenario instance = builder.build();
         assertThat(instance).as("built instance").isNotNull();
 
         Object instanceAfter = field.get(builder);
@@ -60,7 +60,7 @@ class TagTreeTagTreeScenarioTest {
     @Test
     void constructFilled() {
         String name = "_name";
-        TagTreeScenario instance = TagTreeScenario.builder()
+        ParsedScenario instance = ParsedScenario.builder()
                 .withName(name)
                 .build();
         assertThat(instance).as("built instance").isNotNull();
@@ -71,45 +71,45 @@ class TagTreeTagTreeScenarioTest {
 
     @Test
     void defaultIsValid() {
-        TagTreeScenario instance = new TagTreeScenarioBuilder().build();
+        ParsedScenario instance = new ParsedScenarioBuilder().build();
         try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
             Validator validator = factory.getValidator();
-            Set<ConstraintViolation<TagTreeScenario>> violations = validator.validate(instance);
+            Set<ConstraintViolation<ParsedScenario>> violations = validator.validate(instance);
             assertThat(violations).as("constraint violations").isEmpty();
         }
     }
 
     @Test
     void stringPresentation() {
-        TagTreeScenario instance = new TagTreeScenarioBuilder().build();
+        ParsedScenario instance = new ParsedScenarioBuilder().build();
         String asString = instance.toString();
-        assertThat(asString).as("String presentation").isEqualTo("TagTreeScenario[sample scenario]");
+        assertThat(asString).as("String presentation").isEqualTo("ParsedScenario[sample scenario]");
     }
 
     @Test
     void sort() {
-        TagTreeScenario tagTreeScenario1 = new TagTreeScenarioBuilder().withName("1").build();
-        TagTreeScenario tagTreeScenario4 = new TagTreeScenarioBuilder().withName("4").build();
-        TagTreeScenario tagTreeScenario2 = new TagTreeScenarioBuilder().withName("2").build();
-        List<TagTreeScenario> list = new ArrayList<>();
-        list.add(tagTreeScenario1);
-        list.add(tagTreeScenario4);
-        list.add(tagTreeScenario2);
+        ParsedScenario parsedScenario1 = new ParsedScenarioBuilder().withName("1").build();
+        ParsedScenario parsedScenario4 = new ParsedScenarioBuilder().withName("4").build();
+        ParsedScenario parsedScenario2 = new ParsedScenarioBuilder().withName("2").build();
+        List<ParsedScenario> list = new ArrayList<>();
+        list.add(parsedScenario1);
+        list.add(parsedScenario4);
+        list.add(parsedScenario2);
         Collections.sort(list);
         assertThat(list).extracting("name").containsExactly("1", "2", "4");
     }
 
     @Test
     void twoEqualObjects() {
-        TagTreeScenario instance1 = new TagTreeScenarioBuilder().build();
-        TagTreeScenario instance2 = new TagTreeScenarioBuilder().build();
+        ParsedScenario instance1 = new ParsedScenarioBuilder().build();
+        ParsedScenario instance2 = new ParsedScenarioBuilder().build();
         assertThat(instance1).isEqualTo(instance2);
     }
 
     @Test
     void twoEqualHashes() {
-        TagTreeScenario instance1 = new TagTreeScenarioBuilder().build();
-        TagTreeScenario instance2 = new TagTreeScenarioBuilder().build();
+        ParsedScenario instance1 = new ParsedScenarioBuilder().build();
+        ParsedScenario instance2 = new ParsedScenarioBuilder().build();
         int hash1 = instance1.hashCode();
         int hash2 = instance2.hashCode();
         assertThat(hash1).isEqualTo(hash2);
@@ -117,15 +117,15 @@ class TagTreeTagTreeScenarioTest {
 
     @Test
     void unequalNames() {
-        TagTreeScenario instance1 = new TagTreeScenarioBuilder().build();
-        TagTreeScenario instance2 = new TagTreeScenarioBuilder().withName("unequal name").build();
+        ParsedScenario instance1 = new ParsedScenarioBuilder().build();
+        ParsedScenario instance2 = new ParsedScenarioBuilder().withName("unequal name").build();
         assertThat(instance1).isNotEqualTo(instance2);
     }
 
     @Test
     void unequalNameHashes() {
-        TagTreeScenario instance1 = new TagTreeScenarioBuilder().build();
-        TagTreeScenario instance2 = new TagTreeScenarioBuilder().withName("unequal name").build();
+        ParsedScenario instance1 = new ParsedScenarioBuilder().build();
+        ParsedScenario instance2 = new ParsedScenarioBuilder().withName("unequal name").build();
         int hash1 = instance1.hashCode();
         int hash2 = instance2.hashCode();
         assertThat(hash1).isNotEqualTo(hash2);
@@ -133,7 +133,7 @@ class TagTreeTagTreeScenarioTest {
 
     @Test
     void otherObjectType() {
-        TagTreeScenario instance1 = new TagTreeScenarioBuilder().build();
+        ParsedScenario instance1 = new ParsedScenarioBuilder().build();
         Object instance2 = Boolean.FALSE;
         assertThat(instance1).isNotEqualTo(instance2);
     }

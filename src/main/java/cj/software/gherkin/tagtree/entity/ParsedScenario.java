@@ -7,14 +7,14 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class TagTreeScenario implements Serializable, Comparable<TagTreeScenario> {
+public class ParsedScenario implements Serializable, Comparable<ParsedScenario> {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @NotBlank
     private String name;
 
-    private TagTreeScenario() {
+    private ParsedScenario() {
     }
 
     public String getName() {
@@ -30,7 +30,7 @@ public class TagTreeScenario implements Serializable, Comparable<TagTreeScenario
     }
 
     @Override
-    public int compareTo(TagTreeScenario other) {
+    public int compareTo(ParsedScenario other) {
         CompareToBuilder builder = new CompareToBuilder()
                 .append(this.name, other.name);
         int result = builder.build();
@@ -47,7 +47,7 @@ public class TagTreeScenario implements Serializable, Comparable<TagTreeScenario
     @Override
     public boolean equals(Object otherObject) {
         boolean result;
-        if (otherObject instanceof TagTreeScenario other) {
+        if (otherObject instanceof ParsedScenario other) {
             EqualsBuilder builder = new EqualsBuilder()
                     .append(name, other.name);
             result = builder.build();
@@ -63,14 +63,14 @@ public class TagTreeScenario implements Serializable, Comparable<TagTreeScenario
 
     @XmlTransient
     public static class Builder {
-        protected TagTreeScenario instance;
+        protected ParsedScenario instance;
 
         protected Builder() {
-            instance = new TagTreeScenario();
+            instance = new ParsedScenario();
         }
 
-        public TagTreeScenario build() {
-            TagTreeScenario result = instance;
+        public ParsedScenario build() {
+            ParsedScenario result = instance;
             instance = null;
             return result;
         }

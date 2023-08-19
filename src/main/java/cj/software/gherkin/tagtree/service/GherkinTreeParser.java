@@ -1,7 +1,7 @@
 package cj.software.gherkin.tagtree.service;
 
-import cj.software.gherkin.tagtree.entity.TagTreeFeature;
-import cj.software.gherkin.tagtree.entity.TagTreeScenario;
+import cj.software.gherkin.tagtree.entity.ParsedFeature;
+import cj.software.gherkin.tagtree.entity.ParsedScenario;
 import io.cucumber.gherkin.GherkinParser;
 import io.cucumber.messages.types.*;
 import org.apache.logging.log4j.LogManager;
@@ -20,8 +20,8 @@ import java.util.stream.Stream;
 public class GherkinTreeParser {
     private final Logger logger = LogManager.getFormatterLogger();
 
-    public SortedSet<TagTreeFeature> parse(String uri, InputStream is) throws IOException {
-        SortedSet<TagTreeFeature> result = new TreeSet<>();
+    public SortedSet<ParsedFeature> parse(String uri, InputStream is) throws IOException {
+        SortedSet<ParsedFeature> result = new TreeSet<>();
         GherkinParser gherkinParser = GherkinParser.builder()
                 .includeSource(false)
                 .includePickles(false)
@@ -36,25 +36,25 @@ public class GherkinTreeParser {
                     Feature feature = optFeature.get();
                     String name = feature.getName();
                     logger.info("parse scenario \"%s\"...", name);
-                    TagTreeFeature tagTreeFeature = TagTreeFeature.builder().withName(name).build();
-                    tagTreeFeature = parse(tagTreeFeature, feature);
-                    result.add(tagTreeFeature);
+                    ParsedFeature parsedFeature = ParsedFeature.builder().withName(name).build();
+                    parsedFeature = parse(parsedFeature, feature);
+                    result.add(parsedFeature);
                 }
             }
         });
         return result;
     }
 
-    private TagTreeFeature parse (TagTreeFeature source, Feature feature) {
-        TagTreeFeature result = source;
+    private ParsedFeature parse (ParsedFeature source, Feature feature) {
+        ParsedFeature result = source;
         List<FeatureChild> children = feature.getChildren();
         for (FeatureChild featureChild : children) {
             Optional<Scenario> optScenario = featureChild.getScenario();
             if (optScenario.isPresent()) {
                 Scenario scenario = optScenario.get();
                 String name = scenario.getName();
-                TagTreeScenario tagTreeScenario = TagTreeScenario.builder().withName(name).build();
-                result.addScenario(tagTreeScenario);
+                ParsedScenario parsedScenario = ParsedScenario.builder().withName(name).build();
+                result.addScenario(parsedScenario);
             }
         }
         return result;
