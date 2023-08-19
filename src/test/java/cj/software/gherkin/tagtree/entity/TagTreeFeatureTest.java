@@ -17,17 +17,17 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-class FeatureTest {
+class TagTreeFeatureTest {
 
     @Test
     void implementsSerializable() {
-        Class<?>[] interfaces = Feature.class.getInterfaces();
+        Class<?>[] interfaces = TagTreeFeature.class.getInterfaces();
         assertThat(interfaces).as("interfaces").contains(Serializable.class);
     }
 
     @Test
     void builderIsXmlTransient() {
-        XmlTransient annotation = Feature.Builder.class.getAnnotation(XmlTransient.class);
+        XmlTransient annotation = TagTreeFeature.Builder.class.getAnnotation(XmlTransient.class);
         assertThat(annotation).as("Builder XmlTransient").isNotNull();
     }
 
@@ -38,16 +38,16 @@ class FeatureTest {
             SecurityException,
             IllegalArgumentException,
             IllegalAccessException {
-        Feature.Builder builder = Feature.builder();
+        TagTreeFeature.Builder builder = TagTreeFeature.builder();
         assertThat(builder).as("builder").isNotNull();
 
         Field field = builder.getClass().getDeclaredField("instance");
 
         Object instanceBefore = field.get(builder);
         assertThat(instanceBefore).as("instance in builder before build").isNotNull().isInstanceOf(
-                Feature.class);
+                TagTreeFeature.class);
 
-        Feature instance = builder.build();
+        TagTreeFeature instance = builder.build();
         assertThat(instance).as("built instance").isNotNull();
 
         Object instanceAfter = field.get(builder);
@@ -60,7 +60,7 @@ class FeatureTest {
     @Test
     void constructFilled() {
         String name = "_name";
-        Feature instance = Feature.builder()
+        TagTreeFeature instance = TagTreeFeature.builder()
                 .withName(name)
                 .build();
         assertThat(instance).as("built instance").isNotNull();
@@ -71,32 +71,32 @@ class FeatureTest {
 
     @Test
     void defaultIsValid() {
-        Feature instance = new FeatureBuilder().build();
+        TagTreeFeature instance = new TagTreeFeatureBuilder().build();
         try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
             Validator validator = factory.getValidator();
-            Set<ConstraintViolation<Feature>> violations = validator.validate(instance);
+            Set<ConstraintViolation<TagTreeFeature>> violations = validator.validate(instance);
             assertThat(violations).as("constraint violations").isEmpty();
         }
     }
 
     @Test
     void stringPresentation() {
-        Feature instance = new FeatureBuilder().build();
+        TagTreeFeature instance = new TagTreeFeatureBuilder().build();
         String asString = instance.toString();
-        assertThat(asString).as("String presentation").isEqualTo("Feature[sample feature]");
+        assertThat(asString).as("String presentation").isEqualTo("TagTreeFeature[sample feature]");
     }
 
     @Test
     void equalObjects() {
-        Feature feature1 = new FeatureBuilder().build();
-        Feature feature2 = new FeatureBuilder().build();
-        assertThat(feature1).isEqualTo(feature2);
+        TagTreeFeature tagTreeFeature1 = new TagTreeFeatureBuilder().build();
+        TagTreeFeature tagTreeFeature2 = new TagTreeFeatureBuilder().build();
+        assertThat(tagTreeFeature1).isEqualTo(tagTreeFeature2);
     }
 
     @Test
     void twoEqualHashes() {
-        Feature instance1 = new FeatureBuilder().build();
-        Feature instance2 = new FeatureBuilder().build();
+        TagTreeFeature instance1 = new TagTreeFeatureBuilder().build();
+        TagTreeFeature instance2 = new TagTreeFeatureBuilder().build();
         int hash1 = instance1.hashCode();
         int hash2 = instance2.hashCode();
         assertThat(hash1).isEqualTo(hash2);
@@ -104,15 +104,15 @@ class FeatureTest {
 
     @Test
     void unequalNames() {
-        Feature instance1 = new FeatureBuilder().build();
-        Feature instance2 = new FeatureBuilder().withName("unequal name").build();
+        TagTreeFeature instance1 = new TagTreeFeatureBuilder().build();
+        TagTreeFeature instance2 = new TagTreeFeatureBuilder().withName("unequal name").build();
         assertThat(instance1).isNotEqualTo(instance2);
     }
 
     @Test
     void unequalNameHashes() {
-        Feature instance1 = new FeatureBuilder().build();
-        Feature instance2 = new FeatureBuilder().withName("unequal name").build();
+        TagTreeFeature instance1 = new TagTreeFeatureBuilder().build();
+        TagTreeFeature instance2 = new TagTreeFeatureBuilder().withName("unequal name").build();
         int hash1 = instance1.hashCode();
         int hash2 = instance2.hashCode();
         assertThat(hash1).isNotEqualTo(hash2);
@@ -121,31 +121,31 @@ class FeatureTest {
     @Test
     @SuppressWarnings("squid:S5845")    // I want to test different object type
     void otherObjectType() {
-        Feature instance1 = new FeatureBuilder().build();
+        TagTreeFeature instance1 = new TagTreeFeatureBuilder().build();
         assertThat(instance1).isNotEqualTo(false);
     }
 
     @Test
     void addScenarios() {
-        Scenario scenario1 = new ScenarioBuilder().build();
-        Scenario scenario2 = new ScenarioBuilder().withName("1").build();
-        Feature instance = new FeatureBuilder().build();
-        instance.addScenario(scenario1);
-        instance.addScenario(scenario2);
-        instance.addScenario(scenario1);
-        SortedSet<Scenario> scenarios = instance.getScenarios();
-        assertThat(scenarios).extracting("name").containsExactly("1", "sample scenario");
+        TagTreeScenario tagTreeScenario1 = new TagTreeScenarioBuilder().build();
+        TagTreeScenario tagTreeScenario2 = new TagTreeScenarioBuilder().withName("1").build();
+        TagTreeFeature instance = new TagTreeFeatureBuilder().build();
+        instance.addScenario(tagTreeScenario1);
+        instance.addScenario(tagTreeScenario2);
+        instance.addScenario(tagTreeScenario1);
+        SortedSet<TagTreeScenario> tagTreeScenarios = instance.getScenarios();
+        assertThat(tagTreeScenarios).extracting("name").containsExactly("1", "sample scenario");
     }
 
     @Test
     void sort() {
-        Feature feature1 = new FeatureBuilder().withName("1").build();
-        Feature feature4 = new FeatureBuilder().withName("4").build();
-        Feature feature2 = new FeatureBuilder().withName("2").build();
-        List<Feature> list = new ArrayList<>();
-        list.add(feature1);
-        list.add(feature4);
-        list.add(feature2);
+        TagTreeFeature tagTreeFeature1 = new TagTreeFeatureBuilder().withName("1").build();
+        TagTreeFeature tagTreeFeature4 = new TagTreeFeatureBuilder().withName("4").build();
+        TagTreeFeature tagTreeFeature2 = new TagTreeFeatureBuilder().withName("2").build();
+        List<TagTreeFeature> list = new ArrayList<>();
+        list.add(tagTreeFeature1);
+        list.add(tagTreeFeature4);
+        list.add(tagTreeFeature2);
         Collections.sort(list);
         assertThat(list).extracting("name").containsExactly("1", "2", "4");
     }
