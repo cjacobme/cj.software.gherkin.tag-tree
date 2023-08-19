@@ -7,7 +7,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -20,12 +19,6 @@ class ParsedScenarioTest {
     void implementsSerializable() {
         Class<?>[] interfaces = ParsedScenario.class.getInterfaces();
         assertThat(interfaces).as("interfaces").contains(Serializable.class);
-    }
-
-    @Test
-    void builderIsXmlTransient() {
-        XmlTransient annotation = ParsedScenario.Builder.class.getAnnotation(XmlTransient.class);
-        assertThat(annotation).as("Builder XmlTransient").isNotNull();
     }
 
 

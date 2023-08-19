@@ -5,13 +5,29 @@ The Gherkin language contains **scenarios** and **features**. Each scenario can 
 0 to many features. Scenarios and features can be marked with a tag. If a tag is assigned
 to a feature, it is also assigned to all scenarios of that feature.
 
-This project shall create a tree structure for selected tags.
+The purpose of this project is to create a new relationship between tags and its
+associated scenarios, no matter where the tag is placed at.
 
-If a tag is assigned to a one or more scenarios, these are the leaves of the tag node.
-The node hierarchy would be `scenario tag` → `0..N scenario`. 
+One key class of this project is the `GherkinTreeParser` and its method `parse(String, InputStream)`.
+This parser parses a feature file and returns an object graph of
 
-If a tag is assigned to one or more features, all scenarios of the selected features are
-added to the feature's tag. The node hierarchy would be `feature tag` → `0..N Features`
-→ `0..N scenario tags` → `0..N scenarios`.
+```tree
+├── ParsedFeature
+│   ├── name: String
+│   ├── tags: 0..N Strings
+│   ├── scenario: 0..N of ParsedScenario
+│   │   ├── name: String
+│   │   ├── tags
+```
 
-Very important: each scenario may be contained in the tree only once.
+Have a look at the classes 
+[ParsedFeature.java](src/main/java/cj/software/gherkin/tagtree/entity/ParsedFeature.java) and
+[ParsedScenario.java](src/main/java/cj/software/gherkin/tagtree/entity/ParsedScenario.java)
+
+The other key feature of this project is the class `Converter` and its method `parse`. It takes a 
+`Collection<ParsedFeature>` and returns a `SortedMap<String, SortedSet<Coordinate>>`, where `Coordinate`
+simply is the tuple of feature and scenario name. With the help of this map, one can simply inspect
+all scenarios that are reachable by any tag.
+
+
+

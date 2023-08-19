@@ -1,0 +1,90 @@
+{
+  "@All": [
+    {
+      "feature": "Feature 1",
+      "scenario": "s1"
+    },
+    {
+      "feature": "Feature 1",
+      "scenario": "s2"
+    },
+    {
+      "feature": "Feature 2",
+      "scenario": "s1"
+    },
+    {
+      "feature": "Feature 2",
+      "scenario": "s2"
+    }
+  ],
+  "@F1": [
+    {
+      "feature": "Feature 1",
+      "scenario": "s1"
+    },
+    {
+      "feature": "Feature 1",
+      "scenario": "s2"
+    }
+  ],
+  "@F2": [
+    {
+      "feature": "Feature 2",
+      "scenario": "s1"
+    },
+    {
+      "feature": "Feature 2",
+      "scenario": "s2"
+    }
+  ],
+  "@S11": [
+    {
+      "feature": "Feature 1",
+      "scenario": "s1"
+    }
+  ],
+  "@S12": [
+    {
+      "feature": "Feature 1",
+      "scenario": "s2"
+    }
+  ],
+  "@S21": [
+    {
+      "feature": "Feature 2",
+      "scenario": "s1"
+    }
+  ],
+  "@System1": [
+    {
+      "feature": "Feature 1",
+      "scenario": "s1"
+    },
+    {
+      "feature": "Feature 1",
+      "scenario": "s2"
+    },
+    {
+      "feature": "Feature 2",
+      "scenario": "s1"
+    }
+  ],
+  "@System2": [
+    {
+      "feature": "Feature 1",
+      "scenario": "s1"
+    }
+  ],
+  "@abc": [
+    {
+      "feature": "Feature 1",
+      "scenario": "s2"
+    }
+  ],
+  "S22": [
+    {
+      "feature": "Feature 2",
+      "scenario": "s2"
+    }
+  ]
+}

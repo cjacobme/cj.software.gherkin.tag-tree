@@ -1,0 +1,37 @@
+[
+  {
+    "name": "one more feature",
+    "tags": [
+      "@All",
+      "@Salesforce"
+    ],
+    "scenarios": [
+      {
+        "name": "first scenario",
+        "tags": [
+          "@S11",
+          "@Powercloud"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "yet another feature",
+    "tags": [
+      "@All",
+      "@Powercloud"
+    ],
+    "scenarios": [
+      {
+        "name": "awesome",
+        "tags": [
+        ]
+      },
+      {
+        "name": "hello",
+        "tags": [
+        ]
+      }
+    ]
+  }
+]
